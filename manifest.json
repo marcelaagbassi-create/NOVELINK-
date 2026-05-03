@@ -2,71 +2,59 @@
   "name": "NovelInk — L'encre des âmes",
   "short_name": "NovelInk",
   "description": "La plateforme des romanciers — lire, écrire, partager. Par DAVIESLAY.",
-  "start_url": "/NOVELINK-/",
-  "scope": "/NOVELINK-/",
+  "start_url": "https://marcelaagbassi-create.github.io/NOVELINK-/",
+  "scope": "https://marcelaagbassi-create.github.io/NOVELINK-/",
   "display": "standalone",
   "background_color": "#1a0f0a",
   "theme_color": "#c9963a",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "lang": "fr",
   "dir": "ltr",
   "categories": ["books", "education", "social"],
   "icons": [
     {
-      "src": "icons/novelink-icon-B-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/novelink-icon-B-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/novelink-icon-A-192.png",
+      "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/novelink-icon-A-512.png",
+      "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-B-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-B-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "shortcuts": [
     {
-      "name": "Fil littéraire",
+      "name": "Fil litteraire",
       "short_name": "Fil",
-      "description": "Voir le fil TikTok littéraire",
-      "url": "/NOVELINK-/#feed",
-      "icons": [{ "src": "icons/novelink-icon-A-192.png", "sizes": "192x192" }]
+      "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#feed",
+      "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Bibliothèque",
+      "name": "Bibliotheque",
       "short_name": "Livres",
-      "description": "Parcourir les romans",
-      "url": "/NOVELINK-/#books",
-      "icons": [{ "src": "icons/novelink-icon-A-192.png", "sizes": "192x192" }]
+      "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#books",
+      "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Studio d'écriture",
-      "short_name": "Écrire",
-      "description": "Rédiger votre roman",
-      "url": "/NOVELINK-/#studio",
-      "icons": [{ "src": "icons/novelink-icon-A-192.png", "sizes": "192x192" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "icons/novelink-icon-B-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "NovelInk — Fil littéraire"
+      "name": "Studio d'ecriture",
+      "short_name": "Ecrire",
+      "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#studio",
+      "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
     }
   ],
   "prefer_related_applications": false
