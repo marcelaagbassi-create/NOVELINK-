@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NovelInk Widget</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#c9963a;--gold2:#e8b84b;--dark:#1a0f0a;
+  --card:rgba(26,15,10,.92);--border:rgba(201,150,58,.18);
+}
+body{background:transparent;font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ═══════════════════════════════════
+   WIDGET PRINCIPAL — 2×2 (338×338px)
+   ═══════════════════════════════════ */
+.widget{
+  width:338px;height:338px;
+  background:linear-gradient(145deg,#1a0f0a,#0e0906);
+  border-radius:28px;
+  border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  box-shadow:0 8px 32px rgba(0,0,0,.55);
+  cursor:pointer;
+  animation:widgetIn .5s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes widgetIn{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}
+
+/* Fond texture */
+.widget::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 20%,rgba(201,150,58,.08) 0%,transparent 55%),
+    radial-gradient(ellipse at 80% 80%,rgba(201,150,58,.05) 0%,transparent 55%);
+  pointer-events:none;
+}
+
+/* ── HEADER ── */
+.w-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px 12px;
+  border-bottom:1px solid rgba(201,150,58,.1);
+  position:relative;z-index:2;
+}
+.w-logo{display:flex;align-items:center;gap:7px}
+.w-logo-icon{width:24px;height:24px}
+.w-logo-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:var(--gold);letter-spacing:.04em}
+.w-notif-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold2);
+  box-shadow:0 0 8px var(--gold2);
+  animation:dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* ── ACTIVITÉS ── */
+.w-activities{
+  padding:10px 16px;
+  display:flex;flex-direction:column;gap:8px;
+  position:relative;z-index:2;
+  flex:1;
+}
+.w-act-item{
+  display:flex;align-items:center;gap:11px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,150,58,.12);
+  border-radius:12px;
+  padding:9px 12px;
+  transition:all .2s;
+  animation:itemIn .4s ease both;
+}
+.w-act-item:nth-child(1){animation-delay:.1s}
+.w-act-item:nth-child(2){animation-delay:.2s}
+.w-act-item:nth-child(3){animation-delay:.3s}
+@keyframes itemIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+
+.w-act-item.urgent{border-color:rgba(220,80,60,.3);background:rgba(220,80,60,.06)}
+.w-act-item.new{border-color:rgba(201,150,58,.25);background:rgba(201,150,58,.07)}
+
+.w-act-icon{
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.w-act-icon.icon-like{background:rgba(255,60,60,.18)}
+.w-act-icon.icon-msg{background:rgba(60,140,255,.18)}
+.w-act-icon.icon-chap{background:rgba(201,150,58,.18)}
+.w-act-icon.icon-follow{background:rgba(80,200,120,.18)}
+.w-act-icon.icon-comment{background:rgba(180,100,220,.18)}
+
+.w-act-text{flex:1;min-width:0}
+.w-act-title{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
+.w-act-sub{font-size:9.5px;color:rgba(255,255,255,.38);font-family:'EB Garamond',serif;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.w-act-badge{
+  font-size:9px;font-weight:700;font-family:'Montserrat',sans-serif;
+  padding:2px 7px;border-radius:20px;flex-shrink:0;
+}
+.badge-red{background:rgba(220,80,60,.25);color:#ff7060;border:1px solid rgba(220,80,60,.3)}
+.badge-gold{background:rgba(201,150,58,.2);color:var(--gold2);border:1px solid rgba(201,150,58,.3)}
+.badge-blue{background:rgba(60,140,255,.2);color:#70b0ff;border:1px solid rgba(60,140,255,.25)}
+.badge-green{background:rgba(80,200,120,.2);color:#60e090;border:1px solid rgba(80,200,120,.25)}
+
+/* ── FOOTER ── */
+.w-footer{
+  padding:10px 16px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid rgba(201,150,58,.08);
+  position:relative;z-index:2;
+}
+.w-total{font-size:10px;color:rgba(255,255,255,.3);font-family:'EB Garamond',serif;font-style:italic}
+.w-open-btn{
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);background:rgba(201,150,58,.1);
+  border:1px solid rgba(201,150,58,.25);
+  padding:5px 12px;border-radius:20px;cursor:pointer;
+  transition:all .2s;
+}
+.w-open-btn:hover{background:rgba(201,150,58,.2)}
+
+/* ════════════════════════════════
+   WIDGET LONG — 4×1 (338×160px)
+   ════════════════════════════════ */
+.widget-long{
+  width:338px;height:160px;
+  background:linear-gradient(145deg,#1a0f0a,#0e0906);
+  border-radius:24px;
+  border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  box-shadow:0 8px 32px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;
+  animation:widgetIn .5s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:.15s;
+}
+.widget-long::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 15% 50%,rgba(201,150,58,.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+.wl-top{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px 8px;
+  position:relative;z-index:2;
+}
+.wl-logo-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;color:var(--gold)}
+.wl-divider{width:1px;height:14px;background:rgba(201,150,58,.2);flex-shrink:0}
+.wl-headline{font-size:11px;color:rgba(255,255,255,.5);font-family:'EB Garamond',serif;font-style:italic;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.wl-scroll{
+  display:flex;gap:10px;overflow-x:auto;
+  padding:0 16px 14px;
+  scrollbar-width:none;position:relative;z-index:2;
+  flex:1;align-items:center;
+}
+.wl-scroll::-webkit-scrollbar{display:none}
+
+.wl-card{
+  flex-shrink:0;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(201,150,58,.15);
+  border-radius:12px;
+  padding:10px 13px;
+  min-width:140px;
+  animation:cardSlide .5s ease both;
+}
+.wl-card:nth-child(1){animation-delay:.2s}
+.wl-card:nth-child(2){animation-delay:.3s}
+.wl-card:nth-child(3){animation-delay:.4s}
+@keyframes cardSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+.wl-card.urgent{border-color:rgba(220,80,60,.3)}
+.wl-card-head{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.wl-card-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dot-red{background:#ff6050}
+.dot-gold{background:var(--gold2)}
+.dot-blue{background:#5090ff}
+.dot-green{background:#50d080}
+.wl-card-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase}
+.wl-card-value{font-size:18px;font-weight:700;font-family:'Playfair Display',serif;color:#fff;line-height:1;margin-bottom:2px}
+.wl-card-desc{font-size:9.5px;color:rgba(255,255,255,.35);font-family:'EB Garamond',serif;font-style:italic;line-height:1.4}
+
+/* ════════════════════
+   WIDGET MINI — 2×1
+   ════════════════════ */
+.widget-mini{
+  width:160px;height:160px;
+  background:linear-gradient(145deg,#1a0f0a,#120a07);
+  border-radius:24px;
+  border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  box-shadow:0 6px 24px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:widgetIn .5s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:.3s;
+  cursor:pointer;
+}
+.widget-mini::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 40%,rgba(201,150,58,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.wm-inner{text-align:center;position:relative;z-index:2;padding:12px}
+.wm-count{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px;text-shadow:0 0 30px rgba(201,150,58,.3)}
+.wm-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.wm-sub{font-size:9.5px;color:rgba(255,255,255,.3);font-family:'EB Garamond',serif;font-style:italic}
+.wm-bar{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:rgba(255,255,255,.05);
+}
+.wm-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  border-radius:3px;animation:barGrow 2s ease both;animation-delay:.8s;
+}
+@keyframes barGrow{from{width:0}to{width:var(--pct,'70%')}}
+
+/* ══ PAGE ══ */
+.demo-page{
+  min-height:100vh;
+  background:#0a0806;
+  padding:32px 20px;
+  display:flex;flex-direction:column;gap:24px;
+  align-items:center;
+}
+.demo-label{
+  font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);font-family:'Montserrat',sans-serif;
+  align-self:flex-start;margin-bottom:-16px;
+}
+.demo-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+</style>
+</head>
+<body>
+<div class="demo-page">
+
+  <!-- ── WIDGET PRINCIPAL 2×2 ── -->
+  <div class="demo-label">Widget principal · 2×2</div>
+  <div class="widget" onclick="window.location='https://marcelaagbassi-create.github.io/NOVELINK-/'">
+
+    <div class="w-header">
+      <div class="w-logo">
+        <svg class="w-logo-icon" viewBox="0 0 100 100" fill="none">
+          <path d="M28 88Q48 58 72 14" stroke="#c9963a" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M48 58Q58 48 70 28" stroke="#c9963a" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>
+          <path d="M48 58Q40 52 32 38" stroke="#c9963a" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>
+          <path d="M28 88Q24 72 26 56Q28 42 36 28Q46 16 72 14Q64 26 58 36Q52 46 50 56Q46 68 40 80Q36 85 28 88Z" fill="#c9963a" opacity=".18"/>
+        </svg>
+        <span class="w-logo-name">NovelInk</span>
+      </div>
+      <div class="w-notif-dot"></div>
+    </div>
+
+    <div class="w-activities">
+      <!-- Activité 1 : Nouveaux likes -->
+      <div class="w-act-item new">
+        <div class="w-act-icon icon-like">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff6060" stroke="none">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </div>
+        <div class="w-act-text">
+          <div class="w-act-title">Nouveaux likes</div>
+          <div class="w-act-sub">Ton roman a été aimé</div>
+        </div>
+        <span class="w-act-badge badge-red" id="badge-likes">3</span>
+      </div>
+
+      <!-- Activité 2 : Messages non lus -->
+      <div class="w-act-item urgent">
+        <div class="w-act-icon icon-msg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a0ff" stroke-width="2" stroke-linecap="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="w-act-text">
+          <div class="w-act-title">Messages non lus</div>
+          <div class="w-act-sub">Répondre à tes lecteurs</div>
+        </div>
+        <span class="w-act-badge badge-blue" id="badge-msgs">2</span>
+      </div>
+
+      <!-- Activité 3 : Nouveau chapitre à lire -->
+      <div class="w-act-item">
+        <div class="w-act-icon icon-chap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9963a" stroke-width="2" stroke-linecap="round">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5z"/>
+          </svg>
+        </div>
+        <div class="w-act-text">
+          <div class="w-act-title">Chapitres à publier</div>
+          <div class="w-act-sub">Studio d'écriture ouvert</div>
+        </div>
+        <span class="w-act-badge badge-gold" id="badge-chaps">1</span>
+      </div>
+    </div>
+
+    <div class="w-footer">
+      <span class="w-total" id="w-total">6 activités en attente</span>
+      <button class="w-open-btn">Ouvrir →</button>
+    </div>
+  </div>
+
+  <!-- ── WIDGET LONG 4×1 ── -->
+  <div class="demo-label">Widget long · 4×1</div>
+  <div class="widget-long" onclick="window.location='https://marcelaagbassi-create.github.io/NOVELINK-/'">
+
+    <div class="wl-top">
+      <span class="wl-logo-name">NovelInk</span>
+      <div class="wl-divider"></div>
+      <span class="wl-headline" id="wl-headline">Activités en attente...</span>
+    </div>
+
+    <div class="wl-scroll">
+      <div class="wl-card urgent">
+        <div class="wl-card-head">
+          <div class="wl-card-dot dot-red"></div>
+          <span class="wl-card-label">Messages</span>
+        </div>
+        <div class="wl-card-value" id="wl-msgs">2</div>
+        <div class="wl-card-desc">Non lus</div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-head">
+          <div class="wl-card-dot dot-red"></div>
+          <span class="wl-card-label">Likes</span>
+        </div>
+        <div class="wl-card-value" id="wl-likes">3</div>
+        <div class="wl-card-desc">Sur tes romans</div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-head">
+          <div class="wl-card-dot dot-gold"></div>
+          <span class="wl-card-label">À publier</span>
+        </div>
+        <div class="wl-card-value" id="wl-drafts">1</div>
+        <div class="wl-card-desc">Brouillon en attente</div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-head">
+          <div class="wl-card-dot dot-green"></div>
+          <span class="wl-card-label">Abonnés</span>
+        </div>
+        <div class="wl-card-value" id="wl-followers">—</div>
+        <div class="wl-card-desc">Nouveaux suivis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WIDGETS MINI 2×1 ── -->
+  <div class="demo-label">Widgets mini · 2×1</div>
+  <div class="demo-row">
+
+    <div class="widget-mini" onclick="window.location='https://marcelaagbassi-create.github.io/NOVELINK-/'">
+      <div class="wm-inner">
+        <div class="wm-count" id="wm-notifs">6</div>
+        <div class="wm-label">Activités</div>
+        <div class="wm-sub">Tap pour voir</div>
+      </div>
+      <div class="wm-bar"><div class="wm-bar-fill" style="--pct:80%"></div></div>
+    </div>
+
+    <div class="widget-mini" onclick="window.location='https://marcelaagbassi-create.github.io/NOVELINK-/#studio'">
+      <div class="wm-inner">
+        <div style="font-size:32px;margin-bottom:6px">
+          <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+            <path d="M28 88Q48 58 72 14" stroke="#c9963a" stroke-width="3" stroke-linecap="round"/>
+            <path d="M48 58Q40 52 32 38" stroke="#c9963a" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+            <path d="M28 88Q24 72 26 56Q28 42 36 28Q46 16 72 14Q64 26 58 36Q52 46 50 56Q46 68 40 80Q36 85 28 88Z" fill="#c9963a" opacity=".2"/>
+          </svg>
+        </div>
+        <div class="wm-label">Écrire</div>
+        <div class="wm-sub" style="color:rgba(201,150,58,.4);font-style:italic">Studio NovelInk</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// ── Connexion Firebase pour données réelles ──
+const FC = {
+  apiKey:"AIzaSyCPUTLlH8CMqORrOWk0Pd8yVgzstU0Gbqs",
+  authDomain:"novelink-b0958.firebaseapp.com",
+  projectId:"novelink-b0958"
+};
+
+async function loadWidgetData() {
+  try {
+    // Charger les données via Firebase REST API (pas besoin du SDK complet)
+    const base = `https://firestore.googleapis.com/v1/projects/${FC.projectId}/databases/(default)/documents`;
+
+    // Compter les posts récents avec likes
+    const postsResp = await fetch(`${base}/ni_posts?pageSize=20`);
+    if (!postsResp.ok) return;
+    const postsData = await postsResp.json();
+    const docs = postsData.documents || [];
+
+    // Calculer totaux
+    let totalLikes = 0;
+    docs.forEach(d => {
+      const fields = d.fields || {};
+      const likes = fields.likes?.integerValue || 0;
+      totalLikes += parseInt(likes);
+    });
+
+    // Mettre à jour les widgets
+    const total = totalLikes;
+    updateWidget(total);
+  } catch(e) {
+    // Fallback : afficher des valeurs de démo
+    updateWidget(6);
+  }
+}
+
+function updateWidget(total) {
+  // Badge total
+  const totalEl = document.getElementById('w-total');
+  if (totalEl) totalEl.textContent = `${total} activités en attente`;
+
+  // Headline long widget
+  const hl = document.getElementById('wl-headline');
+  if (hl) hl.textContent = total > 0 ? `${total} activités vous attendent` : 'Tout est à jour ✓';
+
+  // Mini widget count
+  const mn = document.getElementById('wm-notifs');
+  if (mn) mn.textContent = total;
+
+  // Animer les badges si > 0
+  if (total > 0) {
+    document.querySelectorAll('.w-notif-dot').forEach(d => {
+      d.style.boxShadow = '0 0 12px #e8b84b, 0 0 4px #e8b84b';
+    });
+  }
+}
+
+// Charger au démarrage
+loadWidgetData();
+// Rafraîchir toutes les 5 minutes
+setInterval(loadWidgetData, 5 * 60 * 1000);
+</script>
+</body>
+</html>
