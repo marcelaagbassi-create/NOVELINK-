@@ -39,22 +39,79 @@
   ],
   "shortcuts": [
     {
-      "name": "Fil litteraire",
+      "name": "Fil littéraire",
       "short_name": "Fil",
       "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#feed",
       "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Bibliotheque",
+      "name": "Bibliothèque",
       "short_name": "Livres",
       "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#books",
       "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Studio d'ecriture",
-      "short_name": "Ecrire",
+      "name": "Studio d'écriture",
+      "short_name": "Écrire",
       "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#studio",
       "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Chats",
+      "url": "https://marcelaagbassi-create.github.io/NOVELINK-/#chat",
+      "icons": [{ "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "widgets": [
+    {
+      "name": "NovelInk Activités",
+      "short_name": "Activités",
+      "description": "Vos notifications et activités NovelInk en un coup d'oeil",
+      "tag": "novelink-activities",
+      "template": "novelink-widget-2x2",
+      "ms_ac_template": "adaptivecard/1.0",
+      "data": "widget-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-B-512.png",
+          "sizes": "512x512",
+          "label": "Widget activités NovelInk"
+        }
+      ],
+      "icons": [
+        {
+          "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png",
+          "sizes": "192x192"
+        }
+      ],
+      "backgrounds": [
+        {
+          "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-512.png",
+          "sizes": "512x512"
+        }
+      ],
+      "auth": false,
+      "update": 300
+    },
+    {
+      "name": "NovelInk Écrire",
+      "short_name": "Studio",
+      "description": "Accès rapide au studio d'écriture",
+      "tag": "novelink-studio",
+      "template": "novelink-widget-2x1",
+      "ms_ac_template": "adaptivecard/1.0",
+      "data": "widget-data.json",
+      "type": "application/json",
+      "icons": [
+        {
+          "src": "https://marcelaagbassi-create.github.io/NOVELINK-/icons/novelink-icon-A-192.png",
+          "sizes": "192x192"
+        }
+      ],
+      "auth": false,
+      "update": 3600
     }
   ],
   "prefer_related_applications": false
