@@ -12,34 +12,38 @@ jobs:
   deploy:
     name: Deploy to Firebase
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        working-directory: functions
-        run: npm install
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools@latest
 
-      - name: Deploy Functions
+      - name: Install function dependencies
+        run: npm install
         working-directory: functions
-        run: firebase deploy --only functions --project novelink-b0958 --non-interactive
 
-      - name: Success
-        run: echo "✅ NovelInk Functions déployées avec succès!"
+      - name: Write service account key
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > /tmp/sa_key.json
+
+      - name: Deploy to Firebase
+        run: |
+          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa_key.json
+          firebase deploy --only functions \
+            --project novelink-b0958 \
+            --non-interactive
+        working-directory: functions
+
+      - name: Cleanup
+        if: always()
+        run: rm -f /tmp/sa_key.json
+
+      - name: Done
+        run: echo "✅ NovelInk Functions déployées!"
