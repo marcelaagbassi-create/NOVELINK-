@@ -305,4 +305,3 @@ exports.onShortpageLiked = onDocumentUpdated('ni_shortpages/{spId}', async (even
 });
 
 console.log('🚀 NovelInk Cloud Functions chargées — DAVIESLAY studio');
-
