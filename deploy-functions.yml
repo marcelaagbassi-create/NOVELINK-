@@ -1,0 +1,46 @@
+name: Deploy NovelInk Firebase Functions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'functions/**'
+      - '.github/workflows/deploy-functions.yml'
+  workflow_dispatch:  # Permet de lancer manuellement depuis GitHub
+
+jobs:
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: functions/package.json
+
+      # 3. Installer les dépendances
+      - name: Install dependencies
+        run: |
+          cd functions
+          npm install
+
+      # 4. Déployer sur Firebase
+      - name: Deploy Firebase Functions
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions --project novelink-b0958
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      # 5. Confirmation
+      - name: Deployment complete
+        run: echo "✅ NovelInk Cloud Functions déployées avec succès !"
