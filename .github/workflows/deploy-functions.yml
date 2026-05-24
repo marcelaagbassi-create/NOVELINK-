@@ -30,20 +30,18 @@ jobs:
         working-directory: functions
 
       - name: Write service account key
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > /tmp/sa_key.json
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > sa_key.json
 
       - name: Deploy to Firebase
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa_key.json
-          firebase deploy --only functions \
-            --project novelink-b0958 \
-            --non-interactive
-        working-directory: functions
+          export GOOGLE_APPLICATION_CREDENTIALS=$PWD/sa_key.json
+          firebase deploy --only functions --project novelink-b0958 --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: sa_key.json
 
       - name: Cleanup
         if: always()
-        run: rm -f /tmp/sa_key.json
+        run: rm -f sa_key.json
 
       - name: Done
-        run: echo "✅ NovelInk Functions déployées!"
+        run: echo "✅ Déployé!"
